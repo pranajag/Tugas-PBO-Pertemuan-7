@@ -1,29 +1,22 @@
-/*
- * Nama : Pranaja Gathan Aqila
- * NIM  : 20251020012
- * File : resources/css/app.css
- * Deskripsi: Cohesive Calm Blue Palette - Minimalist, Konsisten, Ramah Mata & Responsive
- */
-
 :root {
-    /* 1. SURFACE & BACKGROUND (Putih Bersih & Biru Es Sangat Lembut) */
+    /* 1. SURFACE & BACKGROUND  */
     --bg-canvas: #f4f7fb;
     --bg-surface: #ffffff;
     --bg-tint: #edf3fa;
     --bg-hover: #f0f6ff;
 
-    /* 2. TYPOGRAPHY (Deep Navy Slate - Tidak Hitam Pekat agar Ramah Mata) */
+    /* 2. TYPOGRAPHY  */
     --text-primary: #0f2547;
     --text-secondary: #3b5275;
     --text-muted: #687d9c;
 
-    /* 3. PRIMARY BLUE ACCENT (Calm Academic Sapphire Blue - Konsisten di Seluruh UI) */
+    /* 3. PRIMARY BLUE ACCENT */
     --blue-primary: #1d5bbf;
     --blue-hover: #154596;
     --blue-soft: #e3effd;
     --blue-border: #c5dcf9;
 
-    /* 4. STATUS BADGE (Senada, Soft, Tidak Mencolok) */
+    /* 4. STATUS BADGE */
     --status-ok-bg: #e8f5e9;
     --status-ok-text: #1b5e20;
     --status-ok-border: #c8e6c9;
@@ -68,7 +61,7 @@ code {
     border: 1px solid var(--blue-border);
 }
 
-/* HEADER & NAVIGASI ATAS (Konsisten dengan Aksen Biru Lembut) */
+/* HEADER & NAVIGASI ATAS */
 header {
     background-color: var(--bg-surface);
     border-bottom: 1px solid var(--border-line);
@@ -158,7 +151,7 @@ main {
     margin-bottom: 0.5rem;
 }
 
-/* BADGE STATUS (Senada & Tidak Warna-Warni Norak) */
+/* BADGE STATUS */
 .badge {
     display: inline-block;
     padding: 0.28rem 0.75rem;
@@ -193,7 +186,7 @@ main {
     border: 1px solid var(--status-closed-border);
 }
 
-/* TABEL DATA (Header Biru Lembut & Baris Bereaksi Halus Saat Hover) */
+/* TABEL DATA */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -245,7 +238,7 @@ td a:hover {
     text-decoration: underline;
 }
 
-/* TOMBOL AKSI (Sapphire Blue Konsisten dengan Efek Hover Naik Halus) */
+/* TOMBOL AKSI */
 .btn {
     display: inline-block;
     padding: 0.5rem 1.05rem;
@@ -338,7 +331,7 @@ footer {
     }
 }
 
-/* RESPONSIVE: MONITOR BESAR & SMART TV */
+/* RESPONSIVE: LAPTOP & SMART TV */
 @media (min-width: 1600px) {
     html {
         font-size: 18px;
