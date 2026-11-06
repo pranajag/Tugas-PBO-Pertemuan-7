@@ -1,66 +1,127 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+Mini Application OOP & Laravel MVC: Sistem Peminjaman Ruang Kampus
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Nama: Pranaja Gathan Aqila
 
-## About Laravel
+NIM: 20251020012
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Kelas: TI 1/3
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Mata kuliah: Pemrograman Berorientasi Objek (Pertemuan 7 — Routing, Controller & Blade)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Dosen Pengampu: Hilman Lesmana, S.T., M.S.F.
 
-## Learning Laravel
+1. Masalah dan Domain
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Kampus memiliki beberapa jenis ruang yang dapat dipinjam, seperti ruang kelas, laboratorium, dan auditorium. Setiap jenis ruang memiliki informasi dan aturan kapasitas khusus. Program pada Pertemuan 7 ini melanjutkan kode Pertemuan 5 dengan memindahkan seluruh class OOP ke dalam kerangka kerja Laravel 13 menggunakan pola Route, Controller, dan Blade View tanpa mengubah aturan validasi maupun perilaku class yang sudah dibuat sebelumnya. Sesuai instruksi pada Slide 26 Pertemuan 7, aplikasi belum menggunakan database dan menyiapkan data contoh langsung di dalam Controller.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+2. Kandidat Class dan Komponen MVC
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+A. Bagian Model / Class OOP (app/Models/)
 
-## Laravel Sponsors
+RuangKelas.php: Parent class yang menyimpan informasi dan perilaku umum ruang (kodeRuang, gedung, kapasitas, status) dengan properti private dan validasi input.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Laboratorium.php: Child class yang mewarisi RuangKelas, memiliki properti jumlahKomputer, serta menyesuaikan getInfo(), bisaMenampung(), dan siapPraktikum().
 
-### Premium Partners
+Auditorium.php: Child class yang mewarisi RuangKelas, memiliki properti punyaPanggung, serta menyesuaikan getInfo().
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+BisaDipesan.php: Interface yang menetapkan kontrak method prosesPeminjaman() yang wajib dimiliki oleh class peminjaman.
 
-## Contributing
+PeminjamanRuang.php: Class transaksi yang menerapkan composition (memiliki objek RuangKelas), menyimpan identitas peminjam dan jadwal, serta mengimplementasikan BisaDipesan.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+B. Bagian Pengatur Alur & Rute (Controller & Route)
 
-## Code of Conduct
+app/Http/Controllers/RuangController.php: Menerima request dari route, menyiapkan objek ruang dan peminjaman, memfilter data sesuai parameter URL, lalu mengirimkannya ke Blade View.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+routes/web.php: Memetakan alamat URL dan parameter ke method yang sesuai di RuangController serta memberi nama route (named route).
 
-## Security Vulnerabilities
+C. Bagian Tampilan (resources/views/ & resources/css/)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+resources/views/layouts/app.blade.php: Menyediakan kerangka halaman utama (header, navigasi, pemanggilan CSS @vite, footer, dan area @yield('content')).
 
-## License
+resources/views/ruang/index.blade.php: Menampilkan halaman daftar seluruh ruang kampus menggunakan @if dan @foreach.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+resources/views/ruang/show.blade.php: Menampilkan halaman detail satu ruang berdasarkan parameter {kode} beserta uji kapasitas dan riwayat peminjamannya.
+
+resources/views/ruang/peminjaman.blade.php: Menampilkan halaman tambahan daftar transaksi peminjaman ruang beserta tombol filter parameter {status?}.
+
+3. Catatan Alur Route -> Controller -> Blade dan Pemenuhan Tugas Slide 26
+
+Alur Route -> Controller -> Blade
+
+Penerapan: routes/web.php -> RuangController -> resources/views/ruang/*.blade.php
+
+Cara Kerja: Browser meminta URL, Route mencocokkan alamat dan menangkap parameter, Controller menyiapkan objek dari app/Models/, lalu Blade menyusun tampilan HTML.
+
+Tambahkan Satu Halaman Baru
+
+Penerapan: Halaman /peminjaman (resources/views/ruang/peminjaman.blade.php)
+
+Cara Kerja: Selain halaman daftar (/ruang) dan detail (/ruang/{kode}), ditambahkan halaman khusus untuk melihat daftar pengajuan PeminjamanRuang.
+
+Buat Minimal Satu Route dengan Parameter
+
+Penerapan: /ruang/{kode} (parameter wajib) dan /peminjaman/{status?} (parameter opsional)
+
+Cara Kerja: Parameter {kode} dipakai untuk membuka detail satu ruang (misal A01 atau LAB01), sedangkan {status?} dipakai untuk menyaring status peminjaman (disetujui, diajukan, ditolak).
+
+Gunakan Controller untuk Menyiapkan Data
+
+Penerapan: RuangController (method index, show, dan peminjaman)
+
+Cara Kerja: Objek RuangKelas, Laboratorium, Auditorium, dan PeminjamanRuang dibuat di Controller agar route tetap ringkas dan view fokus pada tampilan.
+
+Gunakan Blade @if dan @foreach
+
+Penerapan: Digunakan pada index.blade.php, show.blade.php, dan peminjaman.blade.php
+
+Cara Kerja: @foreach dipakai untuk mengulang baris tabel ruang dan peminjaman, sedangkan @if dipakai untuk memeriksa ketersediaan ruang, tipe class (instanceof), dan status pengajuan.
+
+4. Peta Route yang Terdaftar (php artisan route:list)
+
+GET /ruang
+
+Named Route: ruang.index
+
+Controller Action: RuangController@index
+
+Tujuan Halaman: Menampilkan daftar seluruh ruang kampus (RuangKelas, Laboratorium, Auditorium).
+
+GET /ruang/{kode}
+
+Named Route: ruang.show
+
+Controller Action: RuangController@show
+
+Tujuan Halaman: Menampilkan detail satu ruang berdasarkan parameter {kode} (contoh: /ruang/A01 atau /ruang/LAB01).
+
+GET /peminjaman/{status?}
+
+Named Route: ruang.peminjaman
+
+Controller Action: RuangController@peminjaman
+
+Tujuan Halaman: Menampilkan daftar transaksi peminjaman ruang dengan parameter filter status opsional.
+
+5. Cara Menjalankan dan Pengujian
+
+Jalankan perintah berikut dari terminal pada folder project (C:\laragon\www\ruang-peminjam-kelas-pbo):
+
+php artisan route:list
+npm install
+npm run build
+php artisan serve
+
+
+Setelah server berjalan, buka alamat berikut pada browser untuk menguji setiap skenario:
+
+Halaman Daftar Ruang: http://127.0.0.1:8000/ruang
+
+Halaman Detail Ruang (Parameter {kode}): http://127.0.0.1:8000/ruang/A01 dan http://127.0.0.1:8000/ruang/LAB01
+
+Halaman Tambahan Peminjaman: http://127.0.0.1:8000/peminjaman
+
+Filter Parameter Status Peminjaman: http://127.0.0.1:8000/peminjaman/disetujui
+
+6. Refleksi
+
+Dengan memisahkan class OOP ke dalam app/Models/, pengatur alur ke RuangController, dan tampilan ke Blade View, kode program menjadi jauh lebih terstruktur dibandingkan saat seluruh class dan pengujian masih digabung di dalam satu file PHP pada Pertemuan 5. Saat ini data ruang dan peminjaman masih ditulis sementara di dalam Controller sesuai batasan materi Pertemuan 7 sebelum masuk ke integrasi CRUD pada UTS dan penyimpanan database (Migration & Eloquent) setelah UTS.
